@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(magrittr)\nlibrary(ggplot2)\ndata <- read.csv('~/Desktop/secreat.csv') %>% slice(-c(1:60))\ndata %>% \n  filter(InstoreTraffic != max(InstoreTraffic)) %>% \n  ggplot(aes(x = InstoreTraffic, y = Revenue))+\n  geom_point(alpha = 0.75)+\n  geom_smooth(method = 'loess', span = 0.3, se = F)+ \n  theme_bw()\n\ndata %>% \n  filter(InstoreTraffic != max(InstoreTraffic)) %>% \n  ggplot(aes(x = InstoreTraffic, y = Transaction))+\n  geom_point(alpha = 0.3)+\n  geom_smooth(method = 'loess', span = 0.3, se = F)+ \n  theme_bw()\n",
+    "created" : 1496214768758.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3898831120",
+    "id" : "E841CBE8",
+    "lastKnownWriteTime" : 1496214751,
+    "last_content_update" : 1496214825540,
+    "path" : "~/Desktop/loess.r",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,4 @@
+"0","head(transaction)
+"
+"2","Error in head(transaction) : 找不到物件 'transaction'
+"

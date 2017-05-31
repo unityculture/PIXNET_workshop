@@ -1,0 +1,3 @@
+"0","fish<-read.table(""/Users/sheng/Documents/NCCU/ML/NCCU_ML_Note/lab/20151216_fisher.txt"",h=T)
+"
+"2","incomplete final line found by readTableHeader on '/Users/sheng/Documents/NCCU/ML/NCCU_ML_Note/lab/20151216_fisher.txt'"
