@@ -246,7 +246,7 @@ dir()</pre>
 </article></slide><slide class=''><hgroup><h2>輸入表格檔案(1/3)</h2></hgroup><article  id="13">
 
 <ul>
-<li><a href='https://ling32342.github.io/2017_NCCU_R/transaction/transaction.csv' title=''>下載範例資料</a></li>
+<li><a href='https://raw.githubusercontent.com/unityculture/PIXNET_workshop/master/data/transaction.csv' title=''>下載範例資料</a></li>
 <li>利用<code>read.csv</code> 讀取 <code>csv</code> 檔 (一種以逗點分隔欄位的資料格式)<br/></li>
 <li>路徑必須指到下載的位置</li>
 </ul>
@@ -489,6 +489,8 @@ input</pre>
 <p>找出<a href='http://www.319papago.idv.tw/lifeinfo/chingshin/chingshin-02.html' title=''>清心福全</a>台北市南港店的地址</p>
 
 <pre class = 'prettyprint lang-r'>web_page &lt;- readLines(&quot;http://www.319papago.idv.tw/lifeinfo/chingshin/chingshin-02.html&quot;)
+# 如果你是windows, 這邊會遇到編碼問題，請加:
+# web_page &lt;- readLines(&quot;http://www.319papago.idv.tw/lifeinfo/chingshin/chingshin-02.html&quot;,encoding = &#39;UTF-8&#39;)
 matches &lt;- gregexpr(&quot;台北市南港區[\u4E00-\u9FA5|0-9]+&quot;, web_page)
 tmp &lt;- regmatches(web_page, matches)
 unlist(tmp) # 把 list 轉成 vector</pre>
@@ -887,8 +889,8 @@ any(year_unique != year_unique2) # check 有沒有任何一個不一樣</pre>
 <li>善用 <code>?str_detect</code> 查詢 function 使用方法</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>build_type &lt;- transaction$build_type
-build_type %&gt;% str_detect(&#39;有電梯&#39;) %&gt;% table</pre>
+<pre class = 'prettyprint lang-r'>build_type_vector &lt;- transaction$build_type
+build_type_vector %&gt;% str_detect(&#39;有電梯&#39;) %&gt;% table</pre>
 
 <pre >.
 FALSE  TRUE 
@@ -977,22 +979,6 @@ trac_type %&gt;% str_replace(&#39;(土地+建物)&#39;,&#39;&#39;) %&gt;% head</
 
 <pre >[1] &quot;房地&quot;      &quot;房地&quot;      &quot;房地+車位&quot; &quot;房地&quot;      &quot;房地&quot;      &quot;房地+車位&quot;</pre>
 
-</article></slide><slide class=''><hgroup><h2>Data Manipulation 小挑戰</h2></hgroup><article  id="data-manipulation-">
-
-<ul>
-<li>目標：利用<code>build_type</code>欄位挑出 <strong>有電梯</strong> 的資料</li>
-<li>方法：<code>filter()</code> + <code>str_()</code></li>
-</ul>
-
-<div id="htmlwidget-fd8ca350c79680a9c200" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fd8ca350c79680a9c200">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["1","2","3","4","5","6"],[2,4,5,6,7,8],["臺北市","臺北市","臺北市","臺北市","臺北市","臺北市"],["中山區","北投區","中山區","北投區","北投區","南港區"],[102,102,102,102,102,102],[1,1,1,1,1,1],["房地(土地+建物)","房地(土地+建物)","房地(土地+建物)","房地(土地+建物)+車位","房地(土地+建物)+車位","房地(土地+建物)+車位"],["土地1建物1車位0","土地1建物1車位0","土地1建物1車位0","土地1建物1車位2","土地1建物1車位2","土地1建物1車位1"],["商","商","住","住","住","住"],["住宅大樓(11層含以上有電梯)","住宅大樓(11層含以上有電梯)","華廈(10層含以下有電梯)","華廈(10層含以下有電梯)","華廈(10層含以下有電梯)","住宅大樓(11層含以上有電梯)"],[701228,851218,970624,1010724,1010724,1000414],[10.71,4.7,30.97,141.24,139.56,22.79],[104.5,39.35,185.2,287.35,284.27,170.09],[0,0,0,14.14,14.14,33.87],[12010000,4600000,23800000,62000000,58000000,29700000],[114928,116900,128510,218147,204716,174613],[32,17,5,1,1,2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X<\/th>\n      <th>city<\/th>\n      <th>district<\/th>\n      <th>trac_year<\/th>\n      <th>trac_month<\/th>\n      <th>trac_type<\/th>\n      <th>trac_content<\/th>\n      <th>use_type<\/th>\n      <th>build_type<\/th>\n      <th>build_ymd<\/th>\n      <th>area_land<\/th>\n      <th>area_build<\/th>\n      <th>area_park<\/th>\n      <th>price_total<\/th>\n      <th>price_unit<\/th>\n      <th>age<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","scrollX":true,"fixedColumns":true,"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});\n}","columnDefs":[{"className":"dt-right","targets":[1,4,5,10,11,12,13,14,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
-
-</article></slide><slide class=''><hgroup><h2>Data Manipulation 小挑戰參考解答</h2></hgroup><article  id="data-manipulation-">
-
-<pre class = 'prettyprint lang-r'>transaction %&gt;% 
-  filter(build_type %&gt;% str_detect(&#39;有電梯&#39;)) %&gt;% 
-  head</pre>
-
 </article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Data Manipulation : 資料基本操作</h2></hgroup><article  id="data-manipulation-">
 
 </article></slide><slide class=''><hgroup><h2>2014 年最有影響的套件之一：dplyr</h2></hgroup><article  id="dplyr">
@@ -1051,7 +1037,8 @@ vignette(&quot;introduction&quot;, package = &quot;dplyr&quot;)</pre>
 <li>目標：取出 city 為 &#39;臺北市&#39;</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>transaction %&gt;% 
+<pre class = 'prettyprint lang-r'>library(dplyr) #載入套件
+transaction %&gt;% 
   filter(city == &#39;臺北市&#39;) %&gt;% head</pre>
 
 <pre >  X   city district trac_year trac_month            trac_type
@@ -1202,7 +1189,23 @@ transaction_new %&gt;% select(price_total, area_build, price_per_unit) %&gt;% he
 <li>更多請見<a href='https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf' title=''>dplyr Cheatsheet</a></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>小挑戰</h2></hgroup><article  id="-2">
+</article></slide><slide class=''><hgroup><h2>Data Manipulation 小挑戰</h2></hgroup><article  id="data-manipulation-">
+
+<ul>
+<li>目標：利用<code>build_type</code>欄位挑出 <strong>有電梯</strong> 的資料</li>
+<li>方法：<code>filter()</code> + <code>str_()</code></li>
+</ul>
+
+<div id="htmlwidget-fd8ca350c79680a9c200" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fd8ca350c79680a9c200">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["1","2","3","4","5","6"],[2,4,5,6,7,8],["臺北市","臺北市","臺北市","臺北市","臺北市","臺北市"],["中山區","北投區","中山區","北投區","北投區","南港區"],[102,102,102,102,102,102],[1,1,1,1,1,1],["房地(土地+建物)","房地(土地+建物)","房地(土地+建物)","房地(土地+建物)+車位","房地(土地+建物)+車位","房地(土地+建物)+車位"],["土地1建物1車位0","土地1建物1車位0","土地1建物1車位0","土地1建物1車位2","土地1建物1車位2","土地1建物1車位1"],["商","商","住","住","住","住"],["住宅大樓(11層含以上有電梯)","住宅大樓(11層含以上有電梯)","華廈(10層含以下有電梯)","華廈(10層含以下有電梯)","華廈(10層含以下有電梯)","住宅大樓(11層含以上有電梯)"],[701228,851218,970624,1010724,1010724,1000414],[10.71,4.7,30.97,141.24,139.56,22.79],[104.5,39.35,185.2,287.35,284.27,170.09],[0,0,0,14.14,14.14,33.87],[12010000,4600000,23800000,62000000,58000000,29700000],[114928,116900,128510,218147,204716,174613],[32,17,5,1,1,2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X<\/th>\n      <th>city<\/th>\n      <th>district<\/th>\n      <th>trac_year<\/th>\n      <th>trac_month<\/th>\n      <th>trac_type<\/th>\n      <th>trac_content<\/th>\n      <th>use_type<\/th>\n      <th>build_type<\/th>\n      <th>build_ymd<\/th>\n      <th>area_land<\/th>\n      <th>area_build<\/th>\n      <th>area_park<\/th>\n      <th>price_total<\/th>\n      <th>price_unit<\/th>\n      <th>age<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","scrollX":true,"fixedColumns":true,"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});\n}","columnDefs":[{"className":"dt-right","targets":[1,4,5,10,11,12,13,14,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+</article></slide><slide class=''><hgroup><h2>Data Manipulation 小挑戰參考解答</h2></hgroup><article  id="data-manipulation-">
+
+<pre class = 'prettyprint lang-r'>transaction %&gt;% 
+  filter(build_type %&gt;% str_detect(&#39;有電梯&#39;)) %&gt;% 
+  head</pre>
+
+</article></slide><slide class=''><hgroup><h2>小挑戰2</h2></hgroup><article  id="2">
 
 <ul>
 <li>目標：請挑出 在台北市中山區與北投區的交易資料，並且新增<code>is_elevator</code> 是否有電梯的欄位，若有電梯則填入&#39;TRUE&#39;，若無則填入&#39;FALSE&#39;，並且以屋齡做遞增排序，僅保留<code>city</code>, <code>district</code>, <code>age</code>, <code>price_unit</code> 等欄位。</li>
@@ -1247,7 +1250,8 @@ transaction_new %&gt;% select(price_total, area_build, price_per_unit) %&gt;% he
 <li><code>?spread</code> : key 擺放要展開的欄位，value 展開欄位後對應填入的值</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>long &lt;- data.frame(id = c(1,1,2,2,3,3),
+<pre class = 'prettyprint lang-r'>library(tidyr) # 載入套件
+long &lt;- data.frame(id = c(1,1,2,2,3,3),
                    sex = c(rep(&#39;female&#39;,2),rep(&#39;male&#39;,4)),
                    class = rep(c(&#39;math&#39;,&#39;science&#39;), length.out = 6),
                    score = c(41, 47, 53, 63, 54, 58))
@@ -1438,15 +1442,15 @@ wide</pre>
 <li>Tips : filter -&gt; group_by(a,b) -&gt; summrise() -&gt; arrange</li>
 </ul>
 
+<div id="htmlwidget-fd8ca350c79680a9c200" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fd8ca350c79680a9c200">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["1","2","3","4","5","6"],["北投區","北投區","北投區","北投區","北投區","北投區"],["辦公商業大樓","廠辦","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","農舍"],[112483,83056,226424,122253,128830,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>district<\/th>\n      <th>build_type<\/th>\n      <th>mean<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","scrollX":true,"fixedColumns":true,"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});\n}","columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
+
 <pre class = 'prettyprint lang-r'>transaction %&gt;% 
   filter(city == &#39;臺北市&#39;) %&gt;% 
   group_by(district, build_type) %&gt;% 
   summarise(mean = mean(price_unit, na.rm = T))</pre>
-
-</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
-
-<div id="htmlwidget-65ddf9d5b684955f316e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-65ddf9d5b684955f316e">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109"],["北投區","北投區","北投區","北投區","北投區","北投區","北投區","北投區","北投區","北投區","大安區","大安區","大安區","大安區","大安區","大安區","大安區","大安區","大同區","大同區","大同區","大同區","大同區","大同區","大同區","大同區","大同區","南港區","南港區","南港區","南港區","南港區","南港區","南港區","南港區","南港區","內湖區","內湖區","內湖區","內湖區","內湖區","內湖區","內湖區","內湖區","內湖區","內湖區","內湖區","士林區","士林區","士林區","士林區","士林區","士林區","士林區","士林區","士林區","士林區","士林區","松山區","松山區","松山區","松山區","松山區","松山區","松山區","松山區","萬華區","萬華區","萬華區","萬華區","萬華區","萬華區","萬華區","萬華區","萬華區","文山區","文山區","文山區","文山區","文山區","文山區","文山區","文山區","文山區","信義區","信義區","信義區","信義區","信義區","信義區","信義區","信義區","中山區","中山區","中山區","中山區","中山區","中山區","中山區","中山區","中山區","中正區","中正區","中正區","中正區","中正區","中正區","中正區","中正區"],["辦公商業大樓","廠辦","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","農舍","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","倉庫","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","廠辦","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","倉庫","廠辦","店面(店鋪)","工廠","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","廠辦","店面(店鋪)","工廠","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","農舍","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","店面(店鋪)","工廠","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","倉庫","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","廠辦","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)","辦公商業大樓","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","其他","套房(1房1廳1衛)","透天厝","住宅大樓(11層含以上有電梯)"],[112483,83056,226424,122253,128830,null,132688,125080,220166,158507,260289,493982,230102,262002,255146,299884,298228,265114,142733,null,262094,122370,152853,127207,160747,170251,163586,145637,104075,298272,135070,163638,104939,172635,131345,176615,158840,null,122199,233378,null,131326,158353,156739,172550,173753,182017,187768,195339,332198,null,142213,177342,null,179030,206310,294524,183989,196147,346354,182431,208602,179269,236885,218961,204394,156886,271327,null,106512,117275,122529,139359,184842,116203,159270,null,236666,114889,132964,128248,142802,128023,141354,228954,306637,172837,198445,209249,273522,310359,258466,192375,108095,321502,167935,183347,169688,188090,289989,200214,206515,365934,184602,224495,186258,244910,252855,229674]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>district<\/th>\n      <th>build_type<\/th>\n      <th>mean<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","scrollX":true,"fixedColumns":true,"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});\n}","columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
 
 </article></slide><slide class=''><hgroup><h2>樞紐分析小挑戰之資料型態轉換</h2></hgroup><article >
 
