@@ -103,7 +103,7 @@ sessionInfo() %>% capture.output %>% cat(file = "sessionInfo.log", sep = "\n")
 - 絕對路徑：一般大家所認知的路徑長相。
 - 相對路徑：從 `working directory(工作目錄) 開始尋找`
 
-```{r}
+```{r, eval = F}
 ## 查看目前 Working directory 在哪個位置
 getwd()
 ## 查看該工作目錄底下有什麼檔案
@@ -125,8 +125,6 @@ dir()
 transaction <- read.csv("/Users/sheng/Desktop/data/transaction.csv") #如果你是mac
 transaction <- read.csv("C:\\Users\\transaction.csv") #如果你是windows 
 ############### 相對路徑 ###############
-# 瞭解現在我們所處在的路徑
-getwd()
 # 設定我們檔案存放的路徑
 setwd() 
 # 讀檔起手式
@@ -321,6 +319,7 @@ tmp <- regmatches(web_page, matches)
 unlist(tmp) # 把 list 轉成 vector
 ```
 
+---
 
 其中：
 ```
@@ -395,17 +394,21 @@ tail(transaction)
 
 `str()` 會檢視資料中每個欄位的：型態(int, Factor, chr, ...)以及值
 
-```{r}
+```{r, eval=F}
 str(transaction)
 ```
+
+<center><img src = 'img/str_example.jpg' height = 400></center>
 
 ----
 
 `summary` 會檢視資料中每個欄位敘述性統計(值的分佈)
 
-```{r}
+```{r, eval = F}
 summary(transaction)
 ```
+
+<center><img src = 'img/summary_example.jpg' height = 300></center>
 
 ----
 
@@ -445,6 +448,8 @@ pixnet_good_again_again <- table(pixnet_good_again)
 pixnet_good_again_again
 ```
 
+-----
+
 當然我們也可以這樣改寫，節省命名的時間：
 
 ```{r}
@@ -477,9 +482,7 @@ table(as.character(iris$Species))
 
 ## 基本算子 (`%>%`)
 
-<center> **在往後的章節中，我們都會大量使用這樣的Coding style。**</center>
-
-<iframe src="https://giphy.com/embed/aeSS6NKPqOKQ" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+<iframe src="https://giphy.com/embed/aeSS6NKPqOKQ" width="450" height="330" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
 ## 基本算子 (`%>%`)
 
@@ -689,11 +692,13 @@ vignette("introduction", package = "dplyr")
 
 - 目標：取出 city 為 '臺北市'
 
-```{r}
+```{r, eval = F}
 library(dplyr) #載入套件
 transaction %>% 
   filter(city == '臺北市') %>% head
 ```
+
+<center><img src = 'img/filter_view.jpg' height = 300></center>
 
 ## `select` : 對行做選取
 
@@ -715,11 +720,13 @@ transaction %>%
 
 也可以用負號`-`執行反向選取
 
-```{r}
+```{r, eval= F}
 transaction %>% 
   select(-c(city, district, price_total))%>% 
   head()
 ```
+
+<center><img src = 'img/select_view.jpg' height = 300></center>
 
 ## `arrange` : 資料排序
 

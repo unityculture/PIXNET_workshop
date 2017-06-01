@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "transaction %>% \n  select(-c(city, district, price_total))%>% \n  head() %>% View\n",
+    "created" : 1496299355769.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "3906102232",
+    "id" : "3D454120",
+    "lastKnownWriteTime" : 3407328605188932417,
+    "last_content_update" : 1496299359910,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
