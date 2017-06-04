@@ -1,1 +1,0 @@
-{"frames":[{"character_number":0,"end_character_number":0,"end_line_number":0,"file":"","func":"head(transaction)","line_number":0}],"message":"Error in head(transaction) : 找不到物件 'transaction'\n"}

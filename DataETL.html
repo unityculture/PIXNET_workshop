@@ -196,14 +196,6 @@ Data Analyst Intern at DSP<br><img src = 'https://dsp.im/wp-content/uploads/2014
 </center></li>
 </ul></div>
 
-</article></slide><slide class=''><hgroup><h2>最重要的是&#8230;. 求職中 ^.&lt;</h2></hgroup><article  id="....--.">
-
-<center>
-
-<img src = 'img/cv.jpg' height = 450><br><a href='https://www.cakeresume.com/shenglincv_eng_linkedin' title=''>點我瞭解更多 XDD</a>
-
-</center>
-
 </article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Data ETL 課程大綱</h2></hgroup><article  id="data-etl-">
 
 </article></slide><slide class=''><hgroup><h2>Agenda</h2></hgroup><article  id="agenda">
@@ -350,6 +342,72 @@ head(transaction)</pre>
 
 <pre class = 'prettyprint lang-r'>transaction &lt;- read.csv(&quot;data/transaction.csv&quot;)
 transaction &lt;- read.table(&quot;data/transaction.csv&quot;, sep = &#39;,&#39;, header = T)</pre>
+
+</article></slide><slide class=''><hgroup><h2>讀取JSON檔案 (1/4)</h2></hgroup><article  id="json-14">
+
+<pre class = 'prettyprint lang-r'>install.packages(&quot;jsonlite&quot;)</pre>
+
+<center>
+
+<img src = 'img/csvtojson.jpg' height = 400>
+
+</center>
+
+</article></slide><slide class=''><hgroup><h2>讀取JSON檔案 (2/4)</h2></hgroup><article  id="json-24">
+
+<ul>
+<li><code>fromJSON</code>: 將 <code>JSON</code> 轉換成 Factor, DataFrame, Matrix 等格式，<code>?fromJSON</code> 查詢。</li>
+<li><code>toJSON</code>: <code>?toSON</code></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>json &lt;-
+&#39;[
+  {&quot;Name&quot; : &quot;Mario&quot;, &quot;Age&quot; : 32, &quot;Occupation&quot; : &quot;Plumber&quot;},
+  {&quot;Name&quot; : &quot;Peach&quot;, &quot;Age&quot; : 21, &quot;Occupation&quot; : &quot;Princess&quot;}
+]&#39;
+mydf &lt;- fromJSON(json)
+mydf</pre>
+
+<pre >   Name Age Occupation
+1 Mario  32    Plumber
+2 Peach  21   Princess</pre>
+
+</article></slide><slide class=''><hgroup><h2>讀取JSON檔案 (3/4)</h2></hgroup><article  id="json-34">
+
+<ul>
+<li>資料來源：<a href='https://github.com/pixnet/2016-pixnet-hackathon-recommendation' title=''>2016-pixnet-hackathon-recommendation</a></li>
+<li>資料長相：</li>
+</ul>
+
+<center>
+
+<strong>Hackthon dataset 是否為完整的 JSON file ？</strong>
+
+</center>
+
+<br>
+
+<center>
+
+<img src = 'img/pixnet_json.jpg' height = 300>
+
+</center>
+
+</article></slide><slide class=''><hgroup><h2>讀取JSON檔案 (4/4)</h2></hgroup><article  id="json-44">
+
+<ul>
+<li>方法：使用 <code>stream_in</code> 處理這種 <code>pseudo-JSON</code> 檔案</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>pixnet_json &lt;- stream_in(url(&quot;https://raw.githubusercontent.com/pixnet/2016-pixnet-hackathon-recommendation/master/data/sample_training.json&quot;))</pre>
+
+<pre class = 'prettyprint lang-r'>head(pixnet_json)</pre>
+
+<center>
+
+<img src = 'img/pixnet_json_read.jpg' height = 350>
+
+</center>
 
 </article></slide><slide class=''><hgroup><h2>輸出表格檔案</h2></hgroup><article >
 
@@ -751,7 +809,7 @@ x %&gt;% mean # 由左而右順序操作</pre>
 plot(density(sample(mtcars$mpg, size=10000, replace=TRUE), 
              kernel=&quot;gaussian&quot;), col=&quot;red&quot;, main=&quot;density of mpg&quot;)</pre>
 
-<p><img src="DataETL_files/figure-html/unnamed-chunk-30-1.png" width="720" /></p>
+<p><img src="DataETL_files/figure-html/unnamed-chunk-36-1.png" width="720" /></p>
 
 </article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
 
@@ -761,7 +819,7 @@ mtcars$mpg %&gt;%
     density(kernel=&quot;gaussian&quot;) %&gt;% 
     plot(col=&quot;red&quot;, main=&quot;density of mpg&quot;)</pre>
 
-<p><img src="DataETL_files/figure-html/unnamed-chunk-31-1.png" width="720" /></p>
+<p><img src="DataETL_files/figure-html/unnamed-chunk-37-1.png" width="720" /></p>
 
 </article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Data Manipulation : 字串資料處理</h2></hgroup><article  id="data-manipulation-">
 
@@ -1369,8 +1427,8 @@ wide</pre>
 <li>Tips : filter -&gt; group_by(a,b) -&gt; summrise() -&gt; arrange</li>
 </ul>
 
-<div id="htmlwidget-fd8ca350c79680a9c200" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fd8ca350c79680a9c200">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["1","2","3","4","5","6"],["北投區","北投區","北投區","北投區","北投區","北投區"],["辦公商業大樓","廠辦","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","農舍"],[112483,83056,226424,122253,128830,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>district<\/th>\n      <th>build_type<\/th>\n      <th>mean<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","scrollX":true,"fixedColumns":true,"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});\n}","columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+<div id="htmlwidget-65ddf9d5b684955f316e" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-65ddf9d5b684955f316e">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["1","2","3","4","5","6"],["北投區","北投區","北投區","北投區","北投區","北投區"],["辦公商業大樓","廠辦","店面(店鋪)","公寓(5樓含以下無電梯)","華廈(10層含以下有電梯)","農舍"],[112483,83056,226424,122253,128830,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>district<\/th>\n      <th>build_type<\/th>\n      <th>mean<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","scrollX":true,"fixedColumns":true,"initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});\n}","columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
 
 </article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
 
@@ -1487,6 +1545,23 @@ wide</pre>
 <img src = 'img/garbage-in-garbage-out.jpg' height = 400>
 
 </center>
+
+</article></slide><slide class=''><hgroup><h2>各位同學出作業囉 ～～</h2></hgroup><article >
+
+<p>必須完成：</p>
+
+<ul>
+<li><code>01-RBasic-07-Loading-Dataset</code></li>
+<li><code>02-RDataEngineer-03-JSON</code></li>
+<li><code>02-RDataEngineer-05-Data-Manipulation</code></li>
+<li><code>02-RDataEngineer-06-Join</code></li>
+</ul>
+
+<p>選修：</p>
+
+<ul>
+<li><code>02-RDataEngineer-01-Parsing</code></li>
+</ul>
 
 </article></slide><slide class=''><hgroup><h2>補充資料</h2></hgroup><article >
 

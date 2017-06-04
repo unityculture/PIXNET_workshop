@@ -54,10 +54,6 @@ output:
 - <center>健保資料庫研究</center>
 </div>
 
-## 最重要的是.... 求職中 ^.< 
-
-<center><img src = 'img/cv.jpg' height = 450><br>[點我瞭解更多 XDD](https://www.cakeresume.com/shenglincv_eng_linkedin)</center>
-
 # Data ETL 課程大綱
 
 ## Agenda
@@ -191,6 +187,57 @@ transaction <- read.csv("data/transaction.csv")
 transaction <- read.table("data/transaction.csv", sep = ',', header = T)
 ```
 
+## 讀取JSON檔案 (1/4)
+
+```{r, eval = F}
+install.packages("jsonlite")
+```
+```{r,include=FALSE}
+library(jsonlite)
+```
+
+<center><img src = 'img/csvtojson.jpg' height = 400></center>
+
+## 讀取JSON檔案 (2/4)
+
+- `fromJSON`: 將 `JSON` 轉換成 Factor, DataFrame, Matrix 等格式，`?fromJSON` 查詢。
+- `toJSON`: `?toSON`
+
+```{r}
+json <-
+'[
+  {"Name" : "Mario", "Age" : 32, "Occupation" : "Plumber"},
+  {"Name" : "Peach", "Age" : 21, "Occupation" : "Princess"}
+]'
+mydf <- fromJSON(json)
+mydf
+```
+
+
+## 讀取JSON檔案 (3/4)
+
+- 資料來源：[2016-pixnet-hackathon-recommendation](https://github.com/pixnet/2016-pixnet-hackathon-recommendation)
+- 資料長相：
+
+<center>**Hackthon dataset 是否為完整的 JSON file ？**</center>
+<br>
+<center><img src = 'img/pixnet_json.jpg' height = 300></center>
+
+## 讀取JSON檔案 (4/4)
+
+- 方法：使用 `stream_in` 處理這種 `pseudo-JSON` 檔案
+
+```{r, include=F}
+pixnet_json <- stream_in(url("https://raw.githubusercontent.com/pixnet/2016-pixnet-hackathon-recommendation/master/data/sample_training.json"))
+```
+```{r, eval = F}
+pixnet_json <- stream_in(url("https://raw.githubusercontent.com/pixnet/2016-pixnet-hackathon-recommendation/master/data/sample_training.json"))
+```
+```{r, eval=F}
+head(pixnet_json)
+```
+
+<center><img src = 'img/pixnet_json_read.jpg' height = 350></center>
 
 ## 輸出表格檔案
 
@@ -1064,6 +1111,19 @@ transaction %>%
 ## 非誠勿擾，切勿 GIGO
 
 <center><img src = 'img/garbage-in-garbage-out.jpg' height = 400></center>
+
+## 本週作業
+
+請同學完成R語言翻轉系統以下章節：
+
+- `01-RBasic-07-Loading-Dataset`
+- `02-RDataEngineer-03-JSON`
+- `02-RDataEngineer-05-Data-Manipulation`
+- `02-RDataEngineer-06-Join`
+
+選修：
+
+- `02-RDataEngineer-01-Parsing`
 
 ## 補充資料
 
