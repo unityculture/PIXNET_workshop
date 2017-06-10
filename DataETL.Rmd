@@ -799,14 +799,14 @@ transaction %>% arrange(desc(price_total)) %>%
   select(X,city, price_total) %>% head
 ```
 
-## `mutate` : 新增欄位
+## `mutate` : 新增/修改欄位
 
 <center>
 <img src='img/origin.png' width=300 align='center'></img><img src='img/mutate.png' width=300 align='center'>
 </center>
 
 
-## `mutate` : 新增欄位
+## `mutate` : 新增/修改欄位
 
 - 目標：根據 `area_build` , `price_total` 自行計算單位坪價
 
@@ -915,7 +915,7 @@ wide %>%
 
 <img src='img/bind_rows.png' height=400 align='center'></img>
 
-- dplyr::`bond_cols`
+- dplyr::`bind_cols`
 
 <img src='img/bind_col.png' height=300 align='center'></img>
 

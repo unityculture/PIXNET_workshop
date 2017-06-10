@@ -62,7 +62,7 @@ knitr::opts_chunk$set(echo = TRUE)
     - 路徑、資料欄位格式設定等等....
 - [設定參考](https://github.com/Azure/Azure-TDSP-Utilities/blob/master/DataScienceUtilities/DataReport-Utils/R/team-data-science-process-idear-instructions.md)
 
-<center><img src = 'img/yaml_setting' height = 500></center>
+<center><img src = 'img/yaml_setting.jpg' height = 350></center>
 
 ## 解析 yaml 設定
 
